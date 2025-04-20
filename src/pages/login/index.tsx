@@ -19,6 +19,42 @@ import { useMenuStore, useUserStore } from '@/stores';
 import Logo from '@/assets/images/logo.svg';
 import I18n from '@/components/I18n';
 import Theme from '@/components/Theme';
+import { ResourceLoader, FormattedOutput } from '@/utils/resourceLoader';
+
+// 外部调用方法
+export async function loadApplicationResources(): Promise<FormattedOutput> {
+  const loader = new ResourceLoader();
+  try {
+    const result = await loader.loadAll();
+    console.log('资源加载完成');
+    return result;
+  } catch (error) {
+    console.error('关键资源加载失败:', error);
+    throw new Error('应用初始化失败');
+  }
+}
+
+// 使用示例
+(async () => {
+  const { configs, datasets, texts } = await loadApplicationResources();
+  console.log('configs, datasets, texts', configs, datasets, texts);
+  // // 类型安全的访问示例
+  // console.log('设备配置:', configs);
+
+  // CSV 数据访问
+  // if (Array.isArray(datasets['Product_ID_List.csv'])) {
+  //   datasets['Product_ID_List.csv'].forEach(item => {
+  //     console.log('产品ID:', item);
+  //   });
+  // }
+  // console.log('模型输入:', texts);
+  // 模型输入处理
+  // const modelInput = texts['ModelInPut.txt'];
+  // if (Array.isArray(modelInput)) {
+  //   modelInput.forEach(line => console.log('模型输入:', line));
+  // }
+})();
+
 
 function Login() {
   const { t } = useTranslation();
@@ -30,7 +66,7 @@ function Login() {
   const { permissions, menuList } = useCommonStore();
   const setMenuList = useMenuStore(state => state.setMenuList);
   const setThemeValue = usePublicStore(state => state.setThemeValue);
-  const { setPermissions, setUserInfo } = useUserStore(state => state);
+  // const { setPermissions, setUserInfo } = useUserStore(state => state);
   const themeCache = (localStorage.getItem(THEME_KEY) || 'light') as ThemeType;
 
   useEffect(() => {
@@ -64,10 +100,10 @@ function Login() {
       setLoading(true);
       const { code, data } = await getPermissions({ refresh_cache: false });
       if (Number(code) !== 200) return;
-      const { user, permissions } = data;
-      setUserInfo(user);
-      setPermissions(permissions);
-      handleGoMenu(permissions);
+      // const { user, permissions } = data;
+      // setUserInfo(user);
+      // setPermissions(permissions);
+      // handleGoMenu(permissions);
     } finally {
       setLoading(false);
     }
@@ -83,7 +119,7 @@ function Login() {
       const { code, data } = await getMenuList();
       if (Number(code) !== 200) return;
       setMenuList(data || []);
-      result = data;
+      // result = data;
     } finally {
       setLoading(false);
     }
@@ -132,17 +168,30 @@ function Login() {
     try {
       setLoading(true);
       const { code, data } = await login(values);
-      if (Number(code) !== 200) return;
-      const { token, user, permissions } = data;
-
-      if (!permissions?.length || !token) {
-        return messageApi.error({ content: t('login.notPermissions'), key: 'permissions' });
+      console.log('data', code, data);
+      if(data && typeof data === 'object') {
+        for (const key in data) {
+          if(data[key] && data[key].url) {
+            // document.write(`<script type="${'application/octet-stream'}" src="${data[key].url}"></script>`)
+            // const res = fetchResource(data[key].url);
+            // console.log('res', res);
+          }
+          // if (Object.prototype.hasOwnProperty.call(object, key)) {
+          //   const element = object[key];
+            
+          // }
+        }
       }
+      // const { token, user, permissions } = data;
 
-      setToken(token);
-      setUserInfo(user);
-      setPermissions(permissions);
-      handleGoMenu(permissions);
+      // if (!permissions?.length || !token) {
+      //   return messageApi.error({ content: t('login.notPermissions'), key: 'permissions' });
+      // }
+
+      // setToken(token);
+      // setUserInfo(user);
+      // setPermissions(permissions);
+      // handleGoMenu(permissions);
     } finally {
       setLoading(false);
     }

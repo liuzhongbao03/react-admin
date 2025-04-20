@@ -6,7 +6,7 @@ import { request } from '@/utils/request';
  * @param data - 请求数据
  */
 export function login(data: LoginData) {
-  return request.post<LoginResult>('/user/login', data);
+  return request.get<LoginResult>('index.php?g=App&m=yaokong&a=login&username=17729257068&yzm=1721&nologin=0&lang=zh');
 }
 
 /**

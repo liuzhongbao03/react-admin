@@ -3,7 +3,7 @@ import { creteRequest } from '@south/request';
 
 // 生成环境所用的接口
 const prefixUrl = import.meta.env.VITE_BASE_URL as string;
-const baseURL = process.env.NODE_ENV !== 'development' ? prefixUrl : '/api';
+const baseURL = process.env.NODE_ENV !== 'development' ? prefixUrl : 'http://yaokongguanjia.maxhom.cn/';
 
 // 请求配置
 export const request = creteRequest(baseURL, TOKEN);

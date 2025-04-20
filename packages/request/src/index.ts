@@ -56,12 +56,13 @@ function creteRequest(url: string, tokenKey: string) {
         }
 
         // 错误处理
-        if (data?.code !== 200) {
+        if (data?.response.errorCode === 10000) {
+          return res;
+        } else {
           handleError(data?.message);
           return res;
         }
 
-        return res;
       },
       responseInterceptorsCatch(err) {
         // 取消重复请求则不报错

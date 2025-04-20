@@ -34,8 +34,9 @@ export interface CreateRequestConfig<T = AxiosResponse>
 }
 
 // 接口响应数据
-export interface ServerResult<T = unknown> {
+export interface ServerResult<T> {
   code: number;
   message?: string;
-  data: T
+  data?: T
+  list?: T
 }

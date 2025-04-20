@@ -1,0 +1,20 @@
+# GET / HTTP/1.1
+# Host: www.baidu.com
+
+# 获取验证码
+# GET http://yaokongguanjia.maxhom.cn/index.php?g=App&m=yaokong&a=getYanZhengCode&username=17729257068&lang=zh / HTTP/1.1
+
+# 验证码登录
+GET http://yaokongguanjia.maxhom.cn/index.php?g=App&m=yaokong&a=login&username=17729257068&yzm=1721&nologin=0&lang=zh / HTTP/1.1
+
+# 查询用户信息
+# GET http://yaokongguanjia.maxhom.cn/index.php?g=App&m=yaokong&a=get_userinfo&userid=2&lang=zh / HTTP/1.1
+
+# 用户信息修改
+# GET http://yaokongguanjia.maxhom.cn/index.php?g=App&m=yaokong&a=mody_userinfo&userid=2448&email=&tel=17729257068&VX=&QQ=&facebook=&address=&Date2=&key=&Date=&lang=zh / HTTP/1.1
+
+# 意见反馈
+# GET http://yaokongguanjia.maxhom.cn/index.php?g=App&m=yaokong&a=add_cpqf&userid=2448&username=17729257068&xinghao=FS-SR8&type=&hardware_version=&gujian_version=&other_version=&desc=1&newfile=&qus_type=%E7%A1%AC%E4%BB%B6%E9%97%AE%E9%A2%98&res_type=&res_lxfs=&lang=zh / HTTP/1.1
+
+# 型号列表
+# GET http://yaokongguanjia.maxhom.cn/index.php?g=App&m=yaokong&a=getlist_xinghao&lang=zh / HTTP/1.1
